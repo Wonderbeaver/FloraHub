@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Account</h1>
+    <div class="profile">
+        <div class="profile-img">
+            <!-- <img src="https://i.pinimg.com/originals/f6/90/83/f69083fdeba713c6b1b76a33fd79640b.png" alt="logo"> -->
+        </div>
+            <div class="profile-data">
+                <h3>{{ name }}</h3>     
+                <p>Posts: {{ posts_len }}</p>
+                <p>Views: {{ views }}</p>
+            </div>
+    </div>
+    <form action="/create" method="get"></form>
+        {% for post in posts %}
+            <table class="post">
+                <thead>
+                    <tr>
+                        <th>
+                            <div>
+                                <span class="nickname_title">
+                                    <h5>{{ post[2] }}</h5>
+                                    <h3>{{ post[0] }}</h3>
+                                </span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p>{{ post[1] }}</p></td>
+                    </tr>
+                </tbody>
+            </table>    
+        {% endfor %}
+    <form action="/try_create" method="post">
+        <input id="title" type="text" name="title" placeholder="title" required>
+        <div>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="content" required></textarea>
+            <label for="content"></label>
+        </div>
+        <input type="submit" value="Create">
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </form>
+{% endblock content %}

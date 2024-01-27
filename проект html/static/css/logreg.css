@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+h1, h3 {
+    font-family: 'Pacifico', cursive;
+    color: bisque;
+}
+
+
+img {
+    width: 200px;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 5px 10px;
+    color: bisque;
+    background-color: rgb(45, 27, 84);
+    border: none
+}
+
+
+p, a {
+    font-size: 12px;
+    color: bisque;
+}
+
+.error {
+    color:rgb(155, 6, 6);
+    font-size: 12px;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+        0 0 10px brown,
+        0 0 20px brown,
+        0 0 30px brown,
+        0 0 40px brown;
+    }
+    to {
+        text-shadow:
+        0 0 50px brown,
+        0 0 60px brown;
+    }
+}
+
+
+

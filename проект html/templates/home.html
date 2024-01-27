@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Welcome, {{ name }}</h1>
+    <h3>Blog posts</h3>
+    <form action="/try_create" method="post">
+        <input id="title" type="text" name="title" placeholder="title" required>
+        <div>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="content" required></textarea>
+            <label for="content"></label>
+        </div>
+        <input type="submit" value="Create">
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </form>
+    <form action="/create" method="get"></form>
+        {% for post in posts %}
+            <table class="post">
+                <thead>
+                    <tr>
+                        <th>
+                            <div>
+                                <span class="nickname_title">
+                                    <h3>{{ post[0] }}</h3>
+                                </span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p>{{ post[1] }}</p></td>
+                    </tr>
+                </tbody>
+            </table>    
+        {% endfor %}
+        <img class="Ad" src="{{ url_for('static', filename='images/zdes.jpg') }}" alt="Ad">
+    </form>
+{% endblock content %}
