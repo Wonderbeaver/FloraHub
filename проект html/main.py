@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+from math import ceil
 import utility
 import db_service
 
@@ -34,7 +35,11 @@ def login():
     if is_accessable(False):
         return is_accessable(False)
     error = request.args.get('error')
-    return render_template("login.html", error=error, styles=['logreg'])
+    return render_template(
+        "login.html",
+        error=error,
+        styles=['logreg']
+    )
 
 @app.route('/try_login', methods=['POST'])
 def try_login():
@@ -54,7 +59,11 @@ def register():
         return is_accessable(False)
     error = request.args.get('error')
 
-    return render_template("register.html", error=error, styles=['logreg'])
+    return render_template(
+        "register.html",
+        error=error,
+        styles=['logreg']
+    )
 
 @app.route('/try_reg', methods=['POST'])
 def try_reg():
@@ -80,15 +89,31 @@ def try_reg():
 def home():
     if is_accessable(True):
         return is_accessable(True)
-    name = db_service.get_user(session['auth_id'])[1]
-    posts = db_service.get_posts()
-    return render_template("home.html", name=name, posts=posts, styles=['home', 'create'])
+    page = request.args.get('page', 1, type=int)
+    posts_len = db_service.get_posts_len()
+    pages = ceil(posts_len / 10)
+    return render_template(
+        "home.html",
+        name=db_service.get_user(session['auth_id'])[1],
+        posts_len=posts_len,
+        posts=db_service.get_posts(page=page),
+        pages=pages,
+        styles=['home', 'create'],
+        auth_id=session['auth_id']
+    )
+
 
 @app.route('/settings')
 def settings():
     if is_accessable(True):
         return is_accessable(True)
-    return render_template("settings.html", styles=['create'])
+    return render_template(
+        "settings.html",
+        styles=['create', 'settings'],
+        name=db_service.get_user(session['auth_id'])[1],
+        login=db_service.get_user(session['auth_id'])[2],
+        auth_id=session['auth_id']
+    )
 
 @app.route('/try_create', methods=['POST'])
 def try_create():
@@ -98,8 +123,7 @@ def try_create():
     content = request.form['content']
     if not (title and content):
         return redirect(f"/settings?error=Fill in all fields")
-    name = db_service.get_user(session['auth_id'])[1]
-    db_service.add_post(name, title, content)
+    db_service.add_post(session['auth_id'], title, content)
     return redirect("/home")
 
 @app.route('/logout')
@@ -109,21 +133,37 @@ def logout():
     session['auth_id'] = None
     return redirect("/login")
 
-@app.route('/account')
-def account():
+@app.route('/account/<int:id>')
+def account(id):
     if is_accessable(True):
         return is_accessable(True)
-    name = db_service.get_user(session['auth_id'])[1]
-    posts = db_service.get_user_posts(name)
+    name = db_service.get_user(id)[1]
+    page= request.args.get('page', 1, type=int)
+    posts = db_service.get_posts(id, page)
+    posts_len = db_service.get_posts_len(id)
+    pages= ceil(posts_len / 10)
     views = 0
-    print(posts)
     return render_template(
         "account.html",
         name=name,
-        posts=posts[::-1],
+        posts_len=posts_len,
+        posts=posts,
+        pages=pages,
         styles=['account', 'create', 'home'],
-        posts_len=len(posts),
         views=views,
+        auth_id=session['auth_id']
+    )
+
+@app.route('/post/<int:id>')
+def post(id):
+    if is_accessable(True):
+        return is_accessable(True)
+    post = db_service.get_post(id)
+    return render_template(
+        "post.html",
+        post=post,
+        styles=['account', 'create', 'home'],
+        auth_id=session['auth_id']
     )
 
 app.run(host="0.0.0.0")

@@ -1,52 +1,47 @@
-/* table,
-td {
-    background-color: rgb(56, 24, 92);
-     
-}
-
-thead,
-tfoot {
-    background-color: rgb(40, 16, 68);
-    border-radius: 10px;
-    border: 0;
-} */
-
 .post {
-    border-collapse: collapse;
     max-width: 500px;
-    width: 500px;
-    /* border-radius: 10px;
+    width: 100%;
+    background-color: rgb(45, 27, 84);
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+.post-header {
+    border-bottom: 1px solid bisque;
+    padding-bottom: 5px;
+
+}
+
+.post-header a {
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.post-header p {
+    font-size: 12px;
+    color: rgba(255, 228, 196, 0.484) ;
+}
+
+.post-body {
+    padding-top: 10px;
+}
+
+.post-link {
+    font-size: 22px;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.like-btn {
+    background-color: rgb(26, 10, 44);
     border: none;
-    display: block; */
-}
-
-td {
-    background-color: rgb(56, 24, 92);
+    border-radius: 5px;
+    cursor: pointer;
     padding: 5px 10px;
-    border-radius: 10px;
+    margin-top: 20px;
 }
 
-th {
-    background-color: rgb(40, 16, 68);    
-    border-radius: 10px;    
-}
-
-.nickname_title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* gap: 100px; */
-    /* padding: 5px 10px; */
-    /* border-radius: 10px; */
-    background-color: rgb(40, 16, 68);
-    border-radius: 10px;
-    border: 0;
-    display: block;
-    width: 500px;
-    margin: 10px 0;
-    color: bisque;
-    font-size: 14px;
-}
 
 .Ad {
     width: 500px;

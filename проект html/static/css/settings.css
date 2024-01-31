@@ -1,0 +1,18 @@
+.avatar {
+    width: 200px;
+    border-radius: 100%;
+    border: 1px solid rgb(22, 6, 40);
+    margin: 15px;
+    background-color: rgb(45, 27, 84);
+    gap: 10px;
+    padding: 10px;
+    font-size: 30px;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+

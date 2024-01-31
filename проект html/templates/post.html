@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="post">
+        <div class="post-header">
+            <a href="/account/{{ post['author'][0] }}">{{ post['author'][1] }}</a>
+            <p>{{ post['pub_time'] }}</p>
+        </div>
+        <div class="post-body">
+            <h3>{{ post['title'] }}</h3>
+            <p>{{ post['content'] }}</p>
+        </div>
+        <button class="like-btn">Like</button>            
+    </div>
+{% endblock content %}

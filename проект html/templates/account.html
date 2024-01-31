@@ -12,28 +12,6 @@
                 <p>Views: {{ views }}</p>
             </div>
     </div>
-    <form action="/create" method="get"></form>
-        {% for post in posts %}
-            <table class="post">
-                <thead>
-                    <tr>
-                        <th>
-                            <div>
-                                <span class="nickname_title">
-                                    <h5>{{ post[2] }}</h5>
-                                    <h3>{{ post[0] }}</h3>
-                                </span>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><p>{{ post[1] }}</p></td>
-                    </tr>
-                </tbody>
-            </table>    
-        {% endfor %}
     <form action="/try_create" method="post">
         <input id="title" type="text" name="title" placeholder="title" required>
         <div>
@@ -45,4 +23,22 @@
             <p class="error">{{ error }}</p>
         {% endif %}
     </form>
+    {% for post in posts %}
+        <div class="post">
+            <div class="post-header">
+                <a href="/account/{{ post['author'][0] }}">{{ post['author'][1] }}</a>
+                <p>{{ post['pub_time'] }}</p>
+            </div>
+            <div class="post-body">
+                <a class='post-link' href="/post/{{ post['id'] }}">{{ post['title'] }}</a>
+                <p>{{ post['content'] }}</p>
+            </div>
+            <button class="like-btn">Like</button>            
+        </div>   
+    {% endfor %}
+    <div class="page_change_button">
+        {% for i in range(1, pages+1) %}
+            <a href="/account?page={{ i }}">{{ i }}</a>
+        {% endfor %}
+    </div>
 {% endblock content %}
